@@ -1,13 +1,5 @@
 alias config='GIT_DIR=~/.dotfiles GIT_WORK_TREE=~ git'
 
-# To set up a new machine:
-#   git clone --separate-git-dir=~/.dotfiles /path/to/repo ~/dotfiles-tmp
-#   cp ~/dotfiles-tmp/.gitmodules ~  # if using Git submodules
-#   rm -r ~/dotfiles-tmp/
-#   alias config='GIT_DIR=~/.dotfiles GIT_WORK_TREE=~ git'
-#   config config --local status.showUntrackedFiles no
-#   config checkout  # will complain about collisions
-
 if which lsd > /dev/null 2>&1; then
 	alias ls="lsd --group-dirs first"
 fi
@@ -23,7 +15,7 @@ alias ladybird="QT_QPA_PLATFORM=xcb ladybird"
 
 alias grep="grep --color=auto"
 alias ip="ip -c"
-alias bat="bat --italic-text always"
+alias pacman="pacman --color=auto"
 
 alias codium="codium --enable-features=UseOzonePlatform --ozone-platform=wayland"
 alias code="codium"
