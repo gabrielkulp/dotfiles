@@ -21,6 +21,7 @@ alias codium="codium --enable-features=UseOzonePlatform --ozone-platform=wayland
 alias code="codium"
 
 alias arecord="arecord -f cd -t wav"
+alias clock="tput civis && watch -tn1 date +%X; tput cvvis"
 
 share () {
 	curl --progress-bar -F"file=@$1" 0x0.st | tee /dev/tty | wl-copy | echo "copied URL"
