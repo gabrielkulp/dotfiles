@@ -24,6 +24,10 @@ highlight Comment cterm=italic
 "let &t_ZH="\e[3m"
 "let &t_ZR="\e[23m"
 
+" remove split character or use box drawing to remove gaps
+" :set fillchars=vert:│
+:set fillchars=vert:\ 
+
 set foldmethod=syntax
 set foldnestmax=10
 set nofoldenable
