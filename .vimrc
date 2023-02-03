@@ -5,6 +5,7 @@ silent! colorscheme molokai
 "clear the background color, regardless of theme
 autocmd ColorScheme * highlight Normal ctermbg=None
 autocmd ColorScheme * highlight NonText ctermbg=None
+"set cursorline
 
 "restore cursor position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -16,8 +17,14 @@ set softtabstop=4
 set shiftwidth=4
 set autoindent
 set smartindent
+set smarttab
 set bg=dark
 syntax on
+
+" This makes vim act like all other editors, buffers can
+" exist in the background without being in a window.
+" http://items.sjbach.com/319/configuring-vim-right
+set hidden
 
 " use italics
 highlight Comment cterm=italic
@@ -39,7 +46,7 @@ autocmd FileType yaml
 	  \ tabstop=2
 	  \ softtabstop=2
 	  \ shiftwidth=2
-autocmd BufRead,BufNewFile   *.keymap set ts=6 sw=6 expandtab
+autocmd BufReadPre,FileReadPre *.keymap set ts=6 sw=6 expandtab
 autocmd FileType markdown
 	  \ setlocal spell
 
@@ -107,3 +114,10 @@ augroup END
 
 let g:ale_linters = {'tex': ['chktex', 'cspell']}
 let g:ale_c_cc_options = '-std=c11 -Wall -disable-checker security.insecureAPI.DeprecatedOrUnsafeBufferHandling'
+let g:ale_sign_error = '●'
+let g:ale_sign_warning = '.'
+
+" don't lint right away when opening a file
+let g:ale_lint_on_enter = 0
+" do lint when saving, even if nothing's changed
+let g:ale_lint_on_save = 1
