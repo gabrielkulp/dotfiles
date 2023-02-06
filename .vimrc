@@ -33,7 +33,7 @@ syntax on
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
-" http://items.sjbach.com/319/configuring-vim-right
+" https://items.sjbach.com/319/configuring-vim-right.html
 set hidden
 
 " remove split character or use box drawing to remove gaps
@@ -43,6 +43,24 @@ set hidden
 set foldmethod=syntax
 set foldnestmax=10
 set nofoldenable
+
+set wildmenu " nicer tab completion for commands
+"set wildmenu=list:longest " match commands as typed so far?
+set ignorecase
+set smartcase " search is case-sensitive only if there's a capital
+set scrolloff=5 " context around cursor when scrolling
+
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
+" viewport scrolling with ctrl+arrows, 3 lines at a time
+noremap <C-Up> 3<C-y>
+noremap <C-Down> 3<C-e>
+
+
+filetype on
+filetype plugin on
+filetype indent on
 
 autocmd FileType python
       \ setlocal expandtab
@@ -64,10 +82,16 @@ set breakindent
 set display+=lastline
 set display+=uhex " display unprintable characters in hex
 set hlsearch " search with highlight
+set incsearch " ..dynamically while typed
 "set number relativenumber
 set title
+"set shortmess=atI " shorten messages like "Press ENTER or type"...
 
 set cm=blowfish2
+
+" use arrow keys to navigate autocomplete popup in insert mode
+inoremap <expr> <Up> (pumvisible() ? "<C-p>" : "<Up>")
+inoremap <expr> <Down> (pumvisible() ? "<C-n>" : "<Down>")
 
 " cursor movement relative to line wrapping in normal mode
 noremap <expr> j (v:count == 0 ? 'gj' : 'j')
@@ -75,7 +99,7 @@ noremap <expr> k (v:count == 0 ? 'gk' : 'k')
 noremap <expr> <Down> (v:count == 0 ? 'g<Down>' : '<Down>')
 noremap <expr> <Up> (v:count == 0 ? 'g<Up>' : '<Up>')
 
-" cursor movement relative to line wrapping in edit mode
+" cursor movement relative to line wrapping in insert mode
 inoremap <Up>   <C-O>gk
 inoremap <Down> <C-O>gj
 
@@ -123,11 +147,11 @@ let g:ale_sign_error = '>>'
 " ⭘⦿●⦁⸰•🠞
 let g:ale_sign_warning = '))'
 "·
-let g:ale_set_signs=1
-let g:ale_virtualtext_cursor=1
-let g:ale_set_balloons=1
-let g:ale_hover_cursor=1
-let g:ale_floating_preview=1
+let g:ale_set_signs=1 " extra column on left
+let g:ale_virtualtext_cursor=1 " add text when cursor is near
+let g:ale_set_balloons=1 " popup on mouseover
+let g:ale_hover_cursor=1 " also popup on mouseover?
+let g:ale_floating_preview=1 " idk
 set balloonevalterm " only works with mouse >:(
 
 " don't lint right away when opening a file
