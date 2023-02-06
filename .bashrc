@@ -140,6 +140,17 @@ ex ()
 source ~/.aliases
 export HISTCONTROL=ignoreboth:erasedups
 
+# if in interactive mode
+if [[ $- == *i* ]]
+then
+	# history search on up and down arrows to match what's typed already
+    bind '"\e[A": history-search-backward'
+    bind '"\e[B": history-search-forward'
+	# include binding for keypad arrows which may be needed in some terminals (like st)
+	bind '"\C-[OB": history-search-forward'
+	bind '"\C-[[B": history-search-forward'
+fi
+
 # add a newline to every prompt except the first one
 PROMPT_COMMAND="export PROMPT_COMMAND=echo"
 alias config='GIT_DIR=~/.dotfiles GIT_WORK_TREE=~ git'
