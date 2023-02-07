@@ -70,9 +70,10 @@ autocmd FileType yaml
 	  \ tabstop=2
 	  \ softtabstop=2
 	  \ shiftwidth=2
-autocmd BufReadPre,FileReadPre *.keymap set ts=6 sw=6 expandtab
 autocmd FileType markdown
 	  \ setlocal spell
+autocmd BufReadPre,FileReadPre *.keymap set ts=6 sw=6 expandtab
+autocmd BufRead,BufNewFile .aliases setfiletype bash
 
 set spelllang=en_us
 set spellfile=~/.vim/en.utf-8.add
