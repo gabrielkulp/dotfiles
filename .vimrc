@@ -11,17 +11,16 @@ highlight Comment cterm=italic
 "let &t_ZH="\e[3m"
 "let &t_ZR="\e[23m"
 
-" WHY IS MATCHING BACKWARDS
 set showmatch
-"hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
-highlight MatchParen cterm=underline ctermbg=black ctermfg=NONE
-highlight MatchParen gui=underline guibg=black guifg=NONE
+set matchtime=0
+" uninvert bracket highlighting (why is it so bad by default?)
+au BufNewFile,BufRead * hi MatchParen ctermfg=208 ctermbg=NONE
 
 "restore cursor position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 "filetype plugin indent on
-set noet
+set noexpandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -38,7 +37,10 @@ set hidden
 
 " remove split character or use box drawing to remove gaps
 " :set fillchars=vert:│
-:set fillchars=vert:\ 
+set fillchars=vert:\ 
+set showbreak=↪\
+set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:•
+" use :list to actually display these whitespace markers
 
 set foldmethod=syntax
 set foldnestmax=10
@@ -90,6 +92,7 @@ set display+=lastline
 set display+=uhex " display unprintable characters in hex
 set hlsearch " search with highlight
 set incsearch " ..dynamically while typed
+nohlsearch " ..but not right now
 "set number relativenumber
 set title
 "set shortmess=atI " shorten messages like "Press ENTER or type"...
