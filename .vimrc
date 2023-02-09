@@ -75,6 +75,12 @@ autocmd FileType markdown
 autocmd BufReadPre,FileReadPre *.keymap set ts=6 sw=6 expandtab
 autocmd BufRead,BufNewFile .aliases setfiletype bash
 
+" same as default "ruler" status line, but append HH:MM time
+set noruler
+set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+set statusline+=\ %{strftime('%R')}
+set laststatus=2
+
 set spelllang=en_us
 set spellfile=~/.vim/en.utf-8.add
 
