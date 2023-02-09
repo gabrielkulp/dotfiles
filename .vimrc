@@ -153,9 +153,9 @@ augroup END
 
 let g:ale_linters = {'tex': ['chktex', 'cspell']}
 let g:ale_c_cc_options = '-std=c11 -Wall -disable-checker security.insecureAPI.DeprecatedOrUnsafeBufferHandling'
-let g:ale_sign_error = '>>'
+let g:ale_sign_error = '=>'
 " ⭘⦿●⦁⸰•🠞
-let g:ale_sign_warning = '))'
+let g:ale_sign_warning = '->'
 "·
 let g:ale_set_signs=1 " extra column on left
 let g:ale_virtualtext_cursor=1 " add text when cursor is near
