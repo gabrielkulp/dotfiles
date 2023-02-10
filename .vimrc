@@ -151,21 +151,33 @@ augroup END
 "  endif
 "augroup END
 
+
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:ale_linters = {'tex': ['chktex', 'cspell']}
 let g:ale_c_cc_options = '-std=c11 -Wall -disable-checker security.insecureAPI.DeprecatedOrUnsafeBufferHandling'
 let g:ale_sign_error = '=>'
 " ⭘⦿●⦁⸰•🠞
 let g:ale_sign_warning = '->'
 "·
-let g:ale_set_signs=1 " extra column on left
-let g:ale_virtualtext_cursor=1 " add text when cursor is near
-let g:ale_set_balloons=1 " popup on mouseover
-let g:ale_hover_cursor=1 " also popup on mouseover?
-let g:ale_floating_preview=1 " idk
-set balloonevalterm " only works with mouse >:(
+highlight ALEWarning ctermbg=240 cterm=undercurl
+highlight ALEError ctermbg=52
+set signcolumn=number " draw signs over (relative)number column
+let g:ale_set_signs=0 " extra column on left
+let g:ale_virtualtext_cursor=0 " don't add text when cursor is near
+let g:ale_floating_preview=1 " GVim only? Otherwise use ALEDetail like below:
+" show popup with full error when cursor dwells for 1 second
+let g:ale_detail_to_floating_preview=1
+au CursorHold,CursorHoldI * ALEDetail
+set updatetime=2000
+let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰', '│', '─']
+"let g:ale_floating_window_border = [' ', '▔', '▔', '▔', '▁', '▁', ' ', '▁']
+let g:ale_floating_preview_popup_opts = {"highlight": "ctermbg=NONE", "close": "none"}
+"let g:ale_floating_preview_popup_opts = {"close": "none", "borderhighlight": ["ctermbg=NONE"]}
+"borderhighlight
 
-" don't lint right away when opening a file
-let g:ale_lint_on_enter = 0
+" lint right away when opening a file
+let g:ale_lint_on_enter = 1
 " do lint when saving, even if nothing's changed
 let g:ale_lint_on_save = 1
 
