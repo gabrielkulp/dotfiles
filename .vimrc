@@ -52,8 +52,8 @@ set ignorecase
 set smartcase " search is case-sensitive only if there's a capital
 set scrolloff=5 " context around cursor when scrolling
 
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp,/data/data/com.termux/files/usr/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp,/data/data/com.termux/files/usr/tmp
 
 " viewport scrolling with ctrl+arrows, 3 lines at a time
 noremap <C-Up> 3<C-y>
@@ -125,6 +125,9 @@ nnoremap g# g#zz
 vnoremap < <gv
 vnoremap > >gv
 
+" quickly list and jump buffers
+nnoremap gb :ls<CR>:b<Space>
+
 " nnoremap <C-n> :NERDTreeToggle<CR>
 "nnoremap <leader>n :NERDTreeFocus<CR>
 "nnoremap <C-n> :NERDTree<CR>
@@ -151,7 +154,6 @@ augroup END
 "  endif
 "augroup END
 
-
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:ale_linters = {'tex': ['chktex', 'cspell']}
@@ -168,7 +170,7 @@ let g:ale_virtualtext_cursor=0 " don't add text when cursor is near
 let g:ale_floating_preview=1 " GVim only? Otherwise use ALEDetail like below:
 " show popup with full error when cursor dwells for 1 second
 let g:ale_detail_to_floating_preview=1
-au CursorHold,CursorHoldI * ALEDetail
+au CursorHold,CursorHoldI * if exists(":ALEDetail") | ALEDetail | endif
 set updatetime=2000
 let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰', '│', '─']
 "let g:ale_floating_window_border = [' ', '▔', '▔', '▔', '▁', '▁', ' ', '▁']
