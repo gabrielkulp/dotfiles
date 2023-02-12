@@ -1,0 +1,25 @@
+wpm 480
+prev 0
+next 0
+offset 0
+
+set status on
+set border on
+set progress on
+
+sym progress-bar _
+sym progress-fill _
+style progress-bar #333
+style progress-fill #aaa
+
+style countdown black
+
+style status-primary #666
+style status-secondary #666
+style status-background clear
+
+style text-primary yellow bright
+style text-secondary #333
+style text-highlight white bright
+style text-punct red bright
+style text-quote yellow
