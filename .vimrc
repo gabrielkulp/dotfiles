@@ -5,7 +5,7 @@ silent! colorscheme molokai
 "clear the background color, regardless of theme
 autocmd ColorScheme * highlight Normal ctermbg=None
 autocmd ColorScheme * highlight NonText ctermbg=None
-set cursorline
+"set cursorline
 " use italics
 highlight Comment cterm=italic
 "let &t_ZH="\e[3m"
@@ -36,8 +36,9 @@ syntax on
 set hidden
 
 " remove split character or use box drawing to remove gaps
-" :set fillchars=vert:│
-set fillchars=vert:\ 
+set fillchars=vert:│
+hi! VertSplit ctermfg=darkgray ctermbg=none
+"set fillchars=vert:\ 
 set showbreak=↪\
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:•
 " use :list to actually display these whitespace markers
