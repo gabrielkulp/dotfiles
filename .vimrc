@@ -42,6 +42,8 @@ hi! VertSplit ctermfg=darkgray ctermbg=none
 set showbreak=↪\
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:•
 " use :list to actually display these whitespace markers
+" filler character after end of file
+set fcs=eob:•
 
 set foldmethod=syntax
 set foldnestmax=10
