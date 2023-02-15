@@ -142,8 +142,13 @@ ex ()
 }
 source "$HOME/.aliases"
 export HISTCONTROL=ignoreboth:erasedups
-EDITOR=$(which vim)
-export EDITOR
+if type -P vim &>/dev/null; then
+	EDITOR=$(type -P vim)
+	export EDITOR
+elif type -P nano &>/dev/null; then
+	EDITOR=$(type -P nano)
+	export EDITOR
+fi
 
 # if in interactive mode
 if [[ $- == *i* ]]
