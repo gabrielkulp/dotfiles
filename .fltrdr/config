@@ -7,8 +7,8 @@ set status on
 set border on
 set progress on
 
-sym progress-bar _
-sym progress-fill _
+sym progress-bar ─
+sym progress-fill ═
 style progress-bar #333
 style progress-fill #aaa
 
