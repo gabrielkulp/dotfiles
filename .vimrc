@@ -13,13 +13,11 @@ call plug#begin()
 " documentation for this plugin loader
 Plug 'junegunn/vim-plug'
 
-" better 
+" better defaults
 Plug 'tpope/vim-sensible'
 
 " some nice themes
-Plug 'sickill/vim-monokai'
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
-Plug 'rakr/vim-one'
+Plug 'flazz/vim-colorschemes'
 call plug#end()
 
 
@@ -87,10 +85,14 @@ silent! colorscheme molokai
 "clear the background color, regardless of theme
 autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
 autocmd ColorScheme * highlight NonText ctermbg=NONE guibg=NONE
-" use italics
 autocmd ColorScheme * highlight Comment cterm=italic
+autocmd ColorScheme * highlight Special ctermbg=NONE guibg=NONE
+" use italics
 "let &t_ZH="\e[3m"
 "let &t_ZR="\e[23m"
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=black guibg=black
+autocmd BufWinEnter,InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace //
 
 set showmatch
 set matchtime=0
@@ -115,8 +117,8 @@ set bg=dark
 set hidden
 
 " remove split character or use box drawing to remove gaps
-set fillchars=vert:│
-hi! VertSplit ctermfg=darkgray ctermbg=none
+au BufNewFile,BufRead * set fillchars=vert:\│
+hi! VertSplit ctermfg=darkgray ctermbg=NONE guifg=darkgray guibg=NONE
 "set fillchars=vert:\ 
 set showbreak=↪\
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:•
