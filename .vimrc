@@ -1,13 +1,94 @@
+" Install vim-plug if not found
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endif
+
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+\| endif
+
+call plug#begin()
+" documentation for this plugin loader
+Plug 'junegunn/vim-plug'
+
+" better 
+Plug 'tpope/vim-sensible'
+
+" some nice themes
+Plug 'sickill/vim-monokai'
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'rakr/vim-one'
+call plug#end()
+
+
+
+
+" Styled and colored underline support
+let &t_AU = "\e[58:5:%dm"
+let &t_8u = "\e[58:2:%lu:%lu:%lum"
+let &t_Us = "\e[4:2m"
+let &t_Cs = "\e[4:3m"
+let &t_ds = "\e[4:4m"
+let &t_Ds = "\e[4:5m"
+let &t_Ce = "\e[4:0m"
+" Strikethrough
+let &t_Ts = "\e[9m"
+let &t_Te = "\e[29m"
+" Truecolor support
+if exists('+termguicolors')
+  let &t_8f = "\e[38:2:%lu:%lu:%lum"
+  let &t_8b = "\e[48:2:%lu:%lu:%lum"
+  let &t_RF = "\e]10;?\e\\"
+  let &t_RB = "\e]11;?\e\\"
+  set termguicolors
+endif
+" Bracketed paste
+let &t_BE = "\e[?2004h"
+let &t_BD = "\e[?2004l"
+let &t_PS = "\e[200~"
+let &t_PE = "\e[201~"
+" Cursor control
+let &t_RC = "\e[?12$p"
+let &t_SH = "\e[%d q"
+let &t_RS = "\eP$q q\e\\"
+let &t_SI = "\e[5 q"
+let &t_SR = "\e[3 q"
+let &t_EI = "\e[1 q"
+let &t_VS = "\e[?12l"
+" Focus tracking
+let &t_fe = "\e[?1004h"
+let &t_fd = "\e[?1004l"
+execute "set <FocusGained>=\<Esc>[I"
+execute "set <FocusLost>=\<Esc>[O"
+" Window title
+let &t_ST = "\e[22;2t"
+let &t_RT = "\e[23;2t"
+
+" vim hardcodes background color erase even if the terminfo file does
+" not contain bce. This causes incorrect background rendering when
+" using a color theme with a background color in terminals such as
+" kitty that do not support background color erase.
+let &t_ut=''
+
+
+
+
+
+
 "https://www.guckes.net/vim/setup.html
 set nocp
 set showcmd
-silent! colorscheme molokai
-"clear the background color, regardless of theme
-autocmd ColorScheme * highlight Normal ctermbg=None
-autocmd ColorScheme * highlight NonText ctermbg=None
 "set cursorline
+silent! colorscheme molokai
+"silent! colorscheme onehalfdark " doesn't use transparent background
+"silent! colorscheme one
+"clear the background color, regardless of theme
+autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
+autocmd ColorScheme * highlight NonText ctermbg=NONE guibg=NONE
 " use italics
-highlight Comment cterm=italic
+autocmd ColorScheme * highlight Comment cterm=italic
 "let &t_ZH="\e[3m"
 "let &t_ZR="\e[23m"
 
@@ -26,9 +107,7 @@ set softtabstop=4
 set shiftwidth=4
 set autoindent
 set smartindent
-set smarttab
 set bg=dark
-syntax on
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
@@ -49,8 +128,6 @@ set foldmethod=syntax
 set foldnestmax=10
 set nofoldenable
 
-set wildmenu " nicer tab completion for commands
-"set wildmenu=list:longest " match commands as typed so far?
 set ignorecase
 set smartcase " search is case-sensitive only if there's a capital
 set scrolloff=5 " context around cursor when scrolling
@@ -81,7 +158,7 @@ autocmd BufReadPre,FileReadPre *.keymap set ts=6 sw=6 expandtab
 autocmd BufRead,BufNewFile .aliases setfiletype bash
 
 " same as default "ruler" status line, but append HH:MM time
-set noruler
+"set noruler
 set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set statusline+=\ %{strftime('%R')}
 set laststatus=2
@@ -94,7 +171,6 @@ set breakindent
 set display+=lastline
 set display+=uhex " display unprintable characters in hex
 set hlsearch " search with highlight
-set incsearch " ..dynamically while typed
 nohlsearch " ..but not right now
 "set number relativenumber
 set title

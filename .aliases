@@ -24,6 +24,9 @@ alias arecord="arecord -f cd -t wav"
 alias clock="tput civis && watch -tn1 date +%T; tput cvvis"
 
 alias icat="kitty +kitten icat"
+if [ "$TERM" = "xterm-kitty" ]; then
+	alias ssh="kitty +kitten ssh"
+fi
 
 share () {
 	curl --progress-bar -F"file=@$1" 0x0.st | tee /dev/tty | wl-copy | echo "copied URL"
