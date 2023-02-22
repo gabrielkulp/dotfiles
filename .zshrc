@@ -12,14 +12,16 @@ fi
 # Use powerline
 #USE_POWERLINE="true"
 # Use manjaro zsh prompt
-if [[ -e /usr/share/zsh/manjaro-zsh-config ]]; then
+if [[ -r /usr/share/zsh/manjaro-zsh-config ]]; then
   source /usr/share/zsh/manjaro-zsh-config
 fi
-if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
+if [[ -r /usr/share/zsh/manjaro-zsh-prompt ]]; then
   source /usr/share/zsh/manjaro-zsh-prompt
 fi
 
-source ~/.aliases
+if [ -r ~/.aliases ]; then
+	source ~/.aliases
+fi
 export HISTCONTROL=ignoreboth:erasedups
 #export HISTFILE=~/.zhistory
 # bind UP and DOWN arrow keys to history substring search
