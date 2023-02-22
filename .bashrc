@@ -165,6 +165,12 @@ fi
 PROMPT_COMMAND="export PROMPT_COMMAND=echo"
 alias config='GIT_DIR=~/.dotfiles GIT_WORK_TREE=~ git'
 
+if [[ "$TERM" = "xterm-kitty" ]]
+then
+	TERMINFO=$HOME/.terminfo
+	export TERMINFO
+fi
+
 if [ -f /run/.containerenv ]; then
 	PS1=" $PS1"
 fi
