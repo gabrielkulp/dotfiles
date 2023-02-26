@@ -20,7 +20,16 @@ if [[ -r /usr/share/zsh/manjaro-zsh-prompt ]]; then
 fi
 
 if [ -r ~/.aliases ]; then
+	# More robust use_color check
+	case ${TERM} in
+		xterm*|ansi|*color*)
+			use_color=true;;
+		*)
+			use_color=false;;
+	esac
+	export use_color
 	source ~/.aliases
+	unset use_color
 fi
 export HISTCONTROL=ignoreboth:erasedups
 #export HISTFILE=~/.zhistory

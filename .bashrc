@@ -11,14 +11,12 @@ if [ -r /usr/share/bash-completion/bash_completion ]; then
 	. /usr/share/bash-completion/bash_completion
 fi
 
-# Override below use_color check if using kitty
+# More robust use_color check
 case ${TERM} in
-	*256color|*kitty)
-		use_color=true
-		;;
+	xterm*|ansi|*color*)
+		use_color=true;;
 	*)
-		use_color=false
-		;;
+		use_color=false;;
 esac
 
 # Set use_color based on TERMs listed in dircolors --print-database.
@@ -29,7 +27,7 @@ match_lhs=""
 [[ -r ~/.dir_colors   ]] && match_lhs="${match_lhs}$(<~/.dir_colors)"
 [[ -r /etc/DIR_COLORS ]] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
 [[ -z ${match_lhs}    ]] && type -P dircolors >/dev/null \
-&& match_lhs=$(dircolors --print-database)
+	&& match_lhs=$(dircolors --print-database)
 [[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
 unset safe_term match_lhs
 
