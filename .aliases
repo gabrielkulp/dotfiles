@@ -8,7 +8,7 @@ if ${use_color:=false} ; then
 	alias grep="grep --color=auto"
 	alias ip="ip -c"
 	alias pacman="pacman --color=auto"
-	if type -P lsd &>/dev/null; then
+	if type lsd &>/dev/null; then
 		alias ls="lsd --group-dirs first"
 	fi
 fi
@@ -35,6 +35,7 @@ alias clock="tput civis && watch -tn1 date +%T; tput cvvis"
 alias icat="kitty +kitten icat"
 if [ "$TERM" = "xterm-kitty" ]; then
 	alias ssh="kitty +kitten ssh"
+	alias diff="kitty +kitten diff"
 fi
 
 colors() {
