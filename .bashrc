@@ -11,6 +11,18 @@ if [ -r /usr/share/bash-completion/bash_completion ]; then
 	. /usr/share/bash-completion/bash_completion
 fi
 
+if [ -d /var/lib/flatpak/exports/bin ]; then
+	PATH="$PATH:/var/lib/flatpak/exports/bin"
+	export PATH
+fi
+
+# I think I handle all this stuff myself anyway
+#if [ -d /etc/profile.d ]; then
+#	for f in /etc/profile.d/*.sh; do
+#		. "$f"
+#	done
+#fi
+
 # More robust use_color check
 case ${TERM} in
 	xterm*|ansi|*color*)
