@@ -13,8 +13,9 @@ fi
 
 if [ -d /var/lib/flatpak/exports/bin ]; then
 	PATH="$PATH:/var/lib/flatpak/exports/bin"
-	export PATH
 fi
+PATH="$HOME/.local/bin:$PATH"
+export PATH
 
 # I think I handle all this stuff myself anyway
 #if [ -d /etc/profile.d ]; then
@@ -105,6 +106,8 @@ bind '"\C-[[B": history-search-forward'
 
 # add a newline to every prompt except the first one
 PROMPT_COMMAND="export PROMPT_COMMAND=echo"
+# and set up this oneshot thing again when clearing
+alias clear="PROMPT_COMMAND='export PROMPT_COMMAND=echo'; clear"
 
 # keep kitty terminfo in home dir since it's nonstandard
 if [ "$TERM" = "xterm-kitty" ]; then

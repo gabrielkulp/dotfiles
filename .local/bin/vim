@@ -1,0 +1,34 @@
+#!/bin/sh
+# modified distrobox_binary
+# name: arch
+
+# if vim is installed, run it directly
+if [ -x /usr/sbin/vim ]; then
+	/usr/sbin/vim "$@"
+	exit $?
+fi
+
+# otherwise check if in a container
+if [ -f /run/.containerenv ] || [ -f /.dockerenv ]; then
+	# I'm in a container and don't have vim. Run on host
+	/usr/bin/distrobox-host-exec "$0" "$*"
+else
+	# I'm not in a container and vim isn't installed. Run in container
+	command="/usr/bin/distrobox-enter  -n arch --  /usr/sbin/vim  "
+
+	for arg in "$@"; do
+		if echo "${arg}" | grep -Eq "'|\""; then
+			command="${command} \
+				$(echo "${arg}" | sed 's|\\|\\\\|g' |
+				sed 's| |\\ |g' |
+				sed 's|\$|\\\$|g' |
+				sed "s|'|\\\'|g" |
+				sed 's|"|\\\"|g')"
+		elif echo "${arg}" | grep -q "'"; then
+			command="${command} \"${arg}\""
+		else
+			command="${command} '${arg}'"
+		fi
+	done
+	eval ${command}
+fi
