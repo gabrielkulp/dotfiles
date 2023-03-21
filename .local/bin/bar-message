@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# for the "One Thing" extension
+KEY_PATH=/org/gnome/shell/extensions/one-thing/thing-value
+
+# for the "Simple Message" extension
+KEY_PATH=/org/gnome/shell/extensions/simple-message/message
+
+# either way, set all args to the message (space-separated)
+dconf write "$KEY_PATH" "'$*'"

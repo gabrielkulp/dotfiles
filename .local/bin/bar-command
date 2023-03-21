@@ -1,0 +1,44 @@
+#!/bin/sh
+STATE_FILE=/tmp/bar-msg-state
+LOCK_FILE=/tmp/bar-msg-lock
+
+show () {
+	# Actually set the message that's shown in the top bar
+	/var/home/gk/.local/bin/bar-message "$*"
+}
+
+# Ensure user can't mess things up by clicking fast
+if [ -r "${LOCK_FILE}" ]; then
+	show "Don\'t interrupt me >:("
+	exit 1
+fi
+touch "${LOCK_FILE}"
+
+if [ ! -r "${STATE_FILE}" ]; then
+	# Start state: state file doesn't exist, so make it
+	touch "${STATE_FILE}"
+	show "Session started!"
+	sleep 1
+	show "Running"
+elif [ -r "${STATE_FILE}" ]; then
+	# End state: state file exists. Check its age
+	ELAPSED=$(($(date +%s) - $(date +%s -r ${STATE_FILE})))
+	show "Session stopped!"
+	sleep 1
+	# Get time in seconds
+	TIME="$(( ELAPSED % 60 ))s"
+	if [ ! $ELAPSED -lt 60 ]; then
+		# Get time in minutes
+		TIME="$(( (ELAPSED % 3600)/60 ))m $TIME"
+		if [ ! $ELAPSED -lt 3600 ]; then
+			TIME="$(( ELAPSED / 3600 ))h $TIME"
+			#TIME="$(date -u -d @"$ELAPSED" +"%-Hh") $TIME"
+		fi
+	fi
+	show "$TIME elapsed. Click to start again."
+	# remove file so the next execution starts over
+	rm "${STATE_FILE}"
+fi
+
+# end fast click protection
+rm "${LOCK_FILE}"
