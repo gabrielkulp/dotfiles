@@ -32,8 +32,14 @@ alias code="codium"
 alias arecord="arecord -f cd -t wav"
 alias clock="tput civis && watch -tn1 date +%T; tput cvvis"
 
-alias icat="kitty +kitten icat"
+icat() {
+	for file in $@; do
+		convert "$file" -geometry 256x256 sixel:-
+		#convert "$file" sixel:-
+	done
+}
 if [ "$TERM" = "xterm-kitty" ]; then
+	alias icat="kitty +kitten icat"
 	alias ssh="kitty +kitten ssh"
 	alias diff="kitty +kitten diff"
 fi
