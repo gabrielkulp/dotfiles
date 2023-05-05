@@ -1,3 +1,5 @@
+scriptencoding utf-8
+set enc=utf-8
 " Install vim-plug if not found
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -18,6 +20,11 @@ Plug 'tpope/vim-sensible'
 
 " some nice themes
 Plug 'flazz/vim-colorschemes'
+
+" markdown highlighting
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+
 call plug#end()
 
 
@@ -79,9 +86,9 @@ let &t_ut=''
 set nocp
 set showcmd
 "set cursorline
-silent! colorscheme molokai
+"silent! colorscheme molokai
 "silent! colorscheme onehalfdark " doesn't use transparent background
-"silent! colorscheme one
+silent! colorscheme pencil
 "clear the background color, regardless of theme
 autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
 autocmd ColorScheme * highlight NonText ctermbg=NONE guibg=NONE
@@ -120,7 +127,7 @@ set hidden
 au BufNewFile,BufRead * set fillchars=vert:\│
 hi! VertSplit ctermfg=darkgray ctermbg=NONE guifg=darkgray guibg=NONE
 "set fillchars=vert:\ 
-set showbreak=↪\
+set showbreak=↪
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:•
 " use :list to actually display these whitespace markers
 " filler character after end of file
@@ -234,6 +241,11 @@ augroup END
 "    autocmd BufWinEnter * let w:m2 = matchadd('ErrorMsg', '\%>80v.\+', -1)
 "  endif
 "augroup END
+
+" run :Pdf to make it so that every time you save, Pandoc makes a PDF
+command Pdf	autocmd BufWritePost *.md :Pandoc pdf -V geometry:margin=1in --highlight=tango
+"command Pdf	:w | :Pandoc pdf -V geometry:margin=1in --highlight=tango
+
 
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
