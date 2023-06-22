@@ -117,5 +117,5 @@ fi
 
 # show a cute little box when in a container
 if [ -f /run/.containerenv ]; then
-	PS1=" $PS1"
+	PS1=" $PS1"
 fi
